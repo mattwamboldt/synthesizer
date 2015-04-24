@@ -1,5 +1,9 @@
+test/
+obj/
+bin/
 src/Experiment.vcproj.*
 *.ncb
 *.suo
-test/
-obj/
+*.v12.suo
+*.sdf
+*.opensdf
