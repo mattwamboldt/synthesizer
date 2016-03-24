@@ -6,6 +6,7 @@
 
 namespace Audio
 {
+	// A Delay is will play a signal over itself offset and reduced by some amount
 	class Delay : public IAudioEffect
 	{
 	public:

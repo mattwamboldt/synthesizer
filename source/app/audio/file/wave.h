@@ -9,6 +9,10 @@ using namespace std;
 
 namespace Audio
 {
+	// Contains the data to read and write to the WAVE format
+	// TODO: This is currently being used as our default audio format and sound
+	// source. The systems representation of a sound buffer needs to be
+	// disconnected from file format to allow different formats to be loaded 
 	class WaveFile
 	{
 	public:

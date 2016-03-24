@@ -8,6 +8,11 @@
 namespace Audio
 {
 	class MidiController;
+	// A Midi track is a collection of timed midi events or commands that modify
+	// the midi system to generate music. It also defines the playback speed
+	// TODO: The whole midi system is a WIP and would be better arranged using
+	// the command pattern for it's events. I'm trying to directly process the
+	// events using a loop.
 	class MidiTrack
 	{
 	public:
@@ -36,6 +41,8 @@ namespace Audio
 		std::string instrument;
 	};
 
+	// A Midi file is a collection of tracks which comtain commands for
+	// the underlying midi controller
 	class MidiFile
 	{
 	public:

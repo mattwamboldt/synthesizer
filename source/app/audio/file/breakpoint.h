@@ -12,6 +12,8 @@ namespace Audio
 		float value;
 	};
 
+	// A breakpoint file is a series of float value pairs that are typically used
+	// to constrain a value along a time scale or generate curves for various needs
 	class BreakpointFile
 	{
 	public:

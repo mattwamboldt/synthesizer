@@ -12,8 +12,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D54D644-ADDD-4533-8B51-25CE493145DF}</ProjectGuid>
-    <RootNamespace>Experiment</RootNamespace>
+    <RootNamespace>synthesizer</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>synthesizer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -41,19 +42,19 @@
     <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\test\</OutDir>
-    <IntDir>..\obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\test\</OutDir>
+    <IntDir>$(SolutionDir)..\obj\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\bin\</OutDir>
-    <IntDir>..\obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <IntDir>$(SolutionDir)..\obj\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -64,15 +65,15 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /d /f /y /s /i ..\data $(OutDir)data\
-xcopy /d /f /y /s dll "$(OutDir)"
+      <Command>xcopy /d /f /y /s /i $(SolutionDir)..\data $(OutDir)data\
+xcopy /d /f /y /s $(SolutionDir)dll "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -80,7 +81,7 @@ xcopy /d /f /y /s dll "$(OutDir)"
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -90,7 +91,7 @@ xcopy /d /f /y /s dll "$(OutDir)"
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -98,55 +99,55 @@ xcopy /d /f /y /s dll "$(OutDir)"
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /d /f /y /s /i ..\data $(OutDir)data\
-xcopy /d /f /y /s dll "$(OutDir)"
+      <Command>xcopy /d /f /y /s /i $(SolutionDir)..\data $(OutDir)data\
+xcopy /d /f /y /s $(SolutionDir)dll "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="game\audio\audio.cpp" />
-    <ClCompile Include="game\audio\effects\delay.cpp" />
-    <ClCompile Include="game\audio\effects\tremolo.cpp" />
-    <ClCompile Include="game\audio\file\breakpoint.cpp" />
-    <ClCompile Include="game\audio\file\midi.cpp" />
-    <ClCompile Include="game\audio\file\wave.cpp" />
-    <ClCompile Include="game\audio\file\waveheader.cpp" />
-    <ClCompile Include="game\audio\synth\midichannel.cpp" />
-    <ClCompile Include="game\audio\synth\midicontroller.cpp" />
-    <ClCompile Include="game\audio\synth\midinote.cpp" />
-    <ClCompile Include="game\audio\synth\oscillator.cpp" />
-    <ClCompile Include="game\audio\synth\oscillatorbank.cpp" />
-    <ClCompile Include="game\audio\synth\signalgenerator.cpp" />
-    <ClCompile Include="game\audio\synth\wavebank.cpp" />
-    <ClCompile Include="game\audio\synth\wavetable.cpp" />
-    <ClCompile Include="game\audio\util.cpp" />
-    <ClCompile Include="game\audio\wavefunctions.cpp" />
-    <ClCompile Include="game\debug.cpp" />
-    <ClCompile Include="game\main.cpp" />
-    <ClCompile Include="game\perftimer.cpp" />
+    <ClCompile Include="audio\audio.cpp" />
+    <ClCompile Include="audio\effects\delay.cpp" />
+    <ClCompile Include="audio\effects\tremolo.cpp" />
+    <ClCompile Include="audio\file\breakpoint.cpp" />
+    <ClCompile Include="audio\file\midi.cpp" />
+    <ClCompile Include="audio\file\wave.cpp" />
+    <ClCompile Include="audio\file\waveheader.cpp" />
+    <ClCompile Include="audio\synth\midichannel.cpp" />
+    <ClCompile Include="audio\synth\midicontroller.cpp" />
+    <ClCompile Include="audio\synth\midinote.cpp" />
+    <ClCompile Include="audio\synth\oscillator.cpp" />
+    <ClCompile Include="audio\synth\oscillatorbank.cpp" />
+    <ClCompile Include="audio\synth\signalgenerator.cpp" />
+    <ClCompile Include="audio\synth\wavebank.cpp" />
+    <ClCompile Include="audio\synth\wavetable.cpp" />
+    <ClCompile Include="audio\util.cpp" />
+    <ClCompile Include="audio\wavefunctions.cpp" />
+    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="perftimer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game\audio\audio.h" />
-    <ClInclude Include="game\audio\effects\delay.h" />
-    <ClInclude Include="game\audio\effects\iaudioeffect.h" />
-    <ClInclude Include="game\audio\effects\tremolo.h" />
-    <ClInclude Include="game\audio\file\breakpoint.h" />
-    <ClInclude Include="game\audio\file\midi.h" />
-    <ClInclude Include="game\audio\file\wave.h" />
-    <ClInclude Include="game\audio\file\waveheader.h" />
-    <ClInclude Include="game\audio\synth\midichannel.h" />
-    <ClInclude Include="game\audio\synth\midicontroller.h" />
-    <ClInclude Include="game\audio\synth\midinote.h" />
-    <ClInclude Include="game\audio\synth\oscillator.h" />
-    <ClInclude Include="game\audio\synth\oscillatorbank.h" />
-    <ClInclude Include="game\audio\synth\signalgenerator.h" />
-    <ClInclude Include="game\audio\synth\wavebank.h" />
-    <ClInclude Include="game\audio\synth\wavetable.h" />
-    <ClInclude Include="game\audio\types.h" />
-    <ClInclude Include="game\audio\util.h" />
-    <ClInclude Include="game\audio\wavefunctions.h" />
-    <ClInclude Include="game\debug.h" />
-    <ClInclude Include="game\perftimer.h" />
+    <ClInclude Include="audio\audio.h" />
+    <ClInclude Include="audio\effects\delay.h" />
+    <ClInclude Include="audio\effects\iaudioeffect.h" />
+    <ClInclude Include="audio\effects\tremolo.h" />
+    <ClInclude Include="audio\file\breakpoint.h" />
+    <ClInclude Include="audio\file\midi.h" />
+    <ClInclude Include="audio\file\wave.h" />
+    <ClInclude Include="audio\file\waveheader.h" />
+    <ClInclude Include="audio\synth\midichannel.h" />
+    <ClInclude Include="audio\synth\midicontroller.h" />
+    <ClInclude Include="audio\synth\midinote.h" />
+    <ClInclude Include="audio\synth\oscillator.h" />
+    <ClInclude Include="audio\synth\oscillatorbank.h" />
+    <ClInclude Include="audio\synth\signalgenerator.h" />
+    <ClInclude Include="audio\synth\wavebank.h" />
+    <ClInclude Include="audio\synth\wavetable.h" />
+    <ClInclude Include="audio\types.h" />
+    <ClInclude Include="audio\util.h" />
+    <ClInclude Include="audio\wavefunctions.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="perftimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

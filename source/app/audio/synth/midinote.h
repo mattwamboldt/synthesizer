@@ -7,6 +7,8 @@
 
 namespace Audio
 {
+	// Meant to represent a single midi note. The whole system needs a bit of
+	// rework and is missing many features of midi
 	class MidiNote
 	{
 	public:
