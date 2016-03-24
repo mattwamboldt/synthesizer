@@ -4,6 +4,7 @@
 
 namespace Audio
 {
+	// An effect modifies the source audio to produce a new sound
 	class IAudioEffect
 	{
 	public:

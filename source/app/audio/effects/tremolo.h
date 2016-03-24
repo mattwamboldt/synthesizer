@@ -6,6 +6,8 @@
 
 namespace Audio
 {
+	// Tremolo uses a secondary signal to control the amplitude of the source
+	// Not to be confused with vibrato, which does the same thing for frequency
 	class Tremolo : public IAudioEffect
 	{
 	public:

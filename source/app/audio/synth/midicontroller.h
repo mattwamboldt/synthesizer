@@ -10,6 +10,8 @@ namespace Audio
 	class MidiFile;
 	//This class defines a software emulation of a full midi system
 	//It responds to events and spits out audio
+
+	// Later note: This is missing a lot and is somewhat overcomplicating things
 	class MidiController
 	{
 	public:

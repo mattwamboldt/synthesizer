@@ -5,6 +5,10 @@
 
 namespace Audio
 {
+	// Software representation of a midi channel
+	// Current implementation is extremely inefficient, as the channel has a copy
+	// of every note, instead of a vector of the 16 notes it's allowed to play at
+	// once. I misunderstood at the time of writing how channels and mixing work
 	class MidiChannel
 	{
 	public:
