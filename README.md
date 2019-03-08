@@ -12,7 +12,7 @@ proprietary audio systems.
 ### Instructions ###
 
 The code can be built using Visual Studio 2013 or later using the solution found in the 
-source folder. Alternatively you can download the executable from the downloads section.
+source folder.
 
 There's currently no UI (something that'll get fixed at some point, even if it's just a
 console), so don't let that fool you. If you start pressing and holding on keys you'll
