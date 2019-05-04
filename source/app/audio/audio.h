@@ -13,6 +13,10 @@ namespace Audio
 
 	bool Init();
 
+	bool IsRecording();
+	void StartRecord();
+	void StopRecord();
+
 	//TODO: Write a tool that converts source audio files to a proprietary base raw format for faster reads
 }
 

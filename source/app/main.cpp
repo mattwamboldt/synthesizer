@@ -17,6 +17,8 @@ SDL_Surface* gScreenSurface = NULL;
 bool init();
 void close();
 
+extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
+
 int main( int argc, char* args[] )
 {
     //Start up SDL and create window
@@ -47,19 +49,36 @@ int main( int argc, char* args[] )
 					}
 					else if( e.type == SDL_KEYDOWN )
 					{
-						Audio::MidiEvent midiEvent;
-						midiEvent.eventCode = Audio::MIDI_NOTE_ON << 4;
-						midiEvent.param1 = e.key.keysym.sym;
-						midiEvent.param2 = 64;
-						Audio::midiController.ProcessEvent(midiEvent);
+						if (e.key.keysym.sym != SDLK_SPACE)
+						{
+							Audio::MidiEvent midiEvent;
+							midiEvent.eventCode = Audio::MIDI_NOTE_ON << 4;
+							midiEvent.param1 = e.key.keysym.sym;
+							midiEvent.param2 = 64;
+							Audio::midiController.ProcessEvent(midiEvent);
+						}
 					}
 					else if( e.type == SDL_KEYUP )
 					{
-						Audio::MidiEvent midiEvent;
-						midiEvent.eventCode = Audio::MIDI_NOTE_OFF << 4;
-						midiEvent.param1 = e.key.keysym.sym;
-						midiEvent.param2 = 64;
-						Audio::midiController.ProcessEvent(midiEvent);
+						if (e.key.keysym.sym == SDLK_SPACE)
+						{
+							if (Audio::IsRecording())
+							{
+								Audio::StopRecord();
+							}
+							else
+							{
+								Audio::StartRecord();
+							}
+						}
+						else
+						{
+							Audio::MidiEvent midiEvent;
+							midiEvent.eventCode = Audio::MIDI_NOTE_OFF << 4;
+							midiEvent.param1 = e.key.keysym.sym;
+							midiEvent.param2 = 64;
+							Audio::midiController.ProcessEvent(midiEvent);
+						}
 					}
 				}
 
