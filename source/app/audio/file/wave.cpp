@@ -104,6 +104,11 @@ namespace Audio
 		}
 	}
 
+	void WaveFile::Clear()
+	{
+		data.clear();
+	}
+
 	bool WaveFile::Write(const char* path)
 	{
 		if(data.size() == 0) return false;

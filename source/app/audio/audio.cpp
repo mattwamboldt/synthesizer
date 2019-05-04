@@ -22,11 +22,36 @@ namespace Audio
 	SDL_AudioSpec audioSpec;
 	MidiController midiController;
 
+	WaveHeader outputTestHeader;
+	WaveFile outputTest;
+
 	void FillAudio(void *userData, Uint8 *audioData, int length)
 	{
 		// Clear our audio buffer to silence.
 		memset(audioData, audioSpec.silence, length);
         midiController.Write((PCM16*)audioData, length / 2);
+
+		if (!outputTest.paused)
+		{
+			outputTest.Append((PCM16*)audioData, length / 2);
+		}
+	}
+
+	bool IsRecording()
+	{
+		return !outputTest.paused;
+	}
+
+	void StartRecord()
+	{
+		outputTest.paused = false;
+	}
+
+	void StopRecord()
+	{
+		outputTest.paused = true;
+		outputTest.Write("test.wav");
+		outputTest.Clear();
 	}
 
 	bool Init()
@@ -37,6 +62,15 @@ namespace Audio
 		audioSpec.channels = 2;
 		audioSpec.samples = 4400;
 		audioSpec.callback = &FillAudio;
+
+		outputTestHeader.bitsPerSample = 16;
+		outputTestHeader.blockAlign = 2;
+		outputTestHeader.format = 1;
+		outputTestHeader.nAvgBytesPerSecond = audioSpec.freq * 2;
+		outputTestHeader.numChannels = 2;
+		outputTestHeader.numSamplesPerSecond = audioSpec.freq;
+		outputTest.Init(outputTestHeader);
+		outputTest.paused = true;
 
 		SDL_OpenAudio(&audioSpec, 0);
 
@@ -50,32 +84,6 @@ namespace Audio
 		WaveTable::SetSamplingRate(audioSpec.freq);
 
 		midiController.Init();
-
-/*	
-		// This is axample of using the wavefile, wavebank and effects code
-		
-		//We use this wave file for testing purposes
-		WaveHeader header;
-		header.bitsPerSample = 16;
-		header.blockAlign = 2;
-		header.format = 1;
-		header.nAvgBytesPerSecond = audioSpec.format * 2;
-		header.numChannels = 1;
-		header.numSamplesPerSecond = audioSpec.format;
-		WaveFile tester;
-		tester.Init(header);
-
-		{
-			PerfTimer test("wabank generation");
-			WaveBank waveBank;
-			waveBank.AddWave(TRIANGLE_WAVE);
-			waveBank.SetTremolo(10.0f);
-			waveBank.SetDuration(5.0);
-			waveBank.Write(tester);
-
-			tester.Write("test.wav");
-		}
-*/
 
 		SDL_PauseAudio(0);
 		return true;

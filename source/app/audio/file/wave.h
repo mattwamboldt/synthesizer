@@ -22,6 +22,7 @@ namespace Audio
 		
 		bool Read(const char* path);
 		void Append(PCM16* data, int count);
+		void Clear();
 
 		bool Write(const char* path);
 		void Write(PCM16* data, int count);

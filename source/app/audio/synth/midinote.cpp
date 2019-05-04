@@ -42,7 +42,7 @@ namespace Audio
 
 	void MidiNote::Press(Uint8 velocity)
 	{
-		if(!playing)
+		if (!playing)
 		{
 			Debug::console("playing note\n");
 			sampleCount = 0;
@@ -54,6 +54,9 @@ namespace Audio
 
 	void MidiNote::Release(Uint8 velocity)
 	{
+		// TODO: instant release causes a pop. instead record when we released and the current amplitude
+		// then scale the release based on when we let go vs when we were supposed to let go
+		// TODO: We don't have a defined length for the sustain, meaning we can't do bells or non continuous sounds
 		currentState = ENV_RELEASE;
 		sampleCount = 0;
 	}
@@ -109,6 +112,8 @@ namespace Audio
 			double value = wave.NextSample(wave.GetFrequency()) * volume * envelope;
 			double channelOne = data[i] / 32767.0;
 			double channelTwo = data[i + 1] / 32767.0;
+			// TODO: Current mixing and volumes means that multiple keys are causing us to blow out
+			// look into having an array of playing notes rather than a huge array and investigate ways to mix better
 			data[i] = (value + channelOne - value * channelOne) * 32767.0;
 			data[i+1] = (value + channelTwo - value * channelTwo) * 32767.0;
 
